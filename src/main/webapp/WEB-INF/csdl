@@ -1,0 +1,218 @@
+use drinks;
+create table Catalog
+(
+    catalogId     varchar(5) primary key,
+    catalogName   nvarchar(50) not null,
+    catalogStatus bit default 0
+);
+create table Product
+(
+    productId           varchar(5) primary key,
+    productName         text         not null,
+    catalogId           varchar(5)   not null,
+    foreign key (catalogId) references Catalog (catalogId),
+    descriptions        nvarchar(50) not null,
+    descriptionsDetails text,
+    image               text         not null,
+    price               float        not null,
+    productStatus       bit default 1
+);
+create table size
+(
+    sizeId     varchar(5) primary key,
+    sizeName   nvarchar(30) not null,
+    sizeStatus bit default 1
+);
+create table productDetail
+(
+    proDetailsId varchar(6) primary key,
+    productId    varchar(5) not null,
+    foreign key (productId) references Product (productId),
+    sizeId       varchar(5) not null,
+    foreign key (sizeId) references size (sizeId)
+);
+create table shoppingCarts
+(
+    cartId     int primary key auto_increment,
+    dateCreate datetime
+);
+create table cartDetails
+(
+    cartId    int        not null,
+    foreign key (cartId) references shoppingCarts (cartId),
+    productId varchar(5) not null,
+    foreign key (productId) references Product (productId),
+    quantity  int        not null,
+    price     float      not null,
+    amount    float      not null
+);
+
+create table User
+(
+    userId          int primary key auto_increment,
+    userName        nvarchar(30) not null,
+    passWords       varchar(30)  not null,
+    confimPassWords varchar(30)  not null,
+    fullName        nvarchar(40) not null,
+    phone           nvarchar(30) not null,
+    age             int          not null,
+    email           nvarchar(50) not null,
+    address         text         not null,
+    userStatus      bit default 0
+);
+create table orders
+(
+    ordersId int primary key auto_increment,
+    userId   int not null,
+    foreign key (userId) references User (userId),
+    quatity  int not null
+);
+create table ordersDetails
+(
+    ordersId  int          not null,
+    foreign key (ordersId) references orders (ordersId),
+    productId varchar(5)   not null,
+    foreign key (productId) references Product (productId),
+    phone     nvarchar(30) not null,
+    descriptionOrder text not null ,
+    email     nvarchar(50) not null,
+    address   text         not null,
+    quatity  int not null,
+    totalMoney float not null
+);
+create table comment(
+    commentId int primary key auto_increment,
+    productId varchar(5)   not null,
+    foreign key (productId) references Product (productId),
+    userId   int not null,
+    foreign key (userId) references User (userId),
+    contentComment text not null ,
+    commentStatus bit default 1
+
+);
+create table wishList(
+ productId varchar(5)   not null,
+  foreign key (productId) references Product (productId),
+ userId   int not null,
+ foreign key (userId) references User (userId),
+ quantityWL int default 1
+);
+create table contact(
+    address text not null ,
+    email text not null ,
+    phone nvarchar(30) not null ,
+    website text not null
+);
+DELIMITER &&
+drop procedure if exists getAllCatalog;
+create procedure getAllCatalog()
+begin
+    select c.catalogId,c.catalogName,c.catalogStatus
+        from Catalog c;
+end &&;
+
+
+DELIMITER &&
+drop procedure if exists insertCatalog;
+create procedure insertCatalog(In catId varchar(5),In catName nvarchar(50),In catStatus bit)
+begin
+    insert into Catalog
+        values (catId,catName,catStatus);
+end &&;
+
+DELIMITER &&
+drop procedure if exists getByIdCatalog;
+create procedure getByIdCatalog(In catId varchar(5))
+begin
+    select c.catalogId,c.catalogName,c.catalogStatus
+    from Catalog c
+    where catalogId=catId;
+end &&;
+
+DELIMITER &&
+drop procedure if exists updateCatalog;
+create procedure updateCatalog(In catId varchar(5),In catName nvarchar(50),In catStatus bit)
+begin
+    update Catalog
+        set catalogName=catName,
+            catalogStatus=catStatus
+    where catalogId=catId;
+end &&;
+
+DELIMITER &&
+drop procedure if exists deleteCatalog;
+create procedure deleteCatalog(In catId varchar(5))
+begin
+    update Catalog
+    set  catalogStatus=0
+    where catalogId=catId;
+end &&;
+
+DELIMITER &&
+drop procedure if exists getAllProduct;
+create procedure getAllProduct()
+begin
+   select p.productId, p.productName,c.catalogId , p.descriptions, p.descriptionsDetails, p.image, p.price, p.productStatus
+       from Product p join catalog c on p.catalogId = c.catalogId;
+end &&;
+
+DELIMITER &&
+drop procedure if exists getByIdProduct;
+create procedure getByIdProduct(In prId varchar(5))
+begin
+    select p.productId, p.productName,c.catalogId , p.descriptions, p.descriptionsDetails, p.image, p.price, p.productStatus
+    from Product p join catalog c on p.catalogId = c.catalogId
+    where productId=prId;
+end &&;
+
+
+DELIMITER &&
+drop procedure if exists insertProduct;
+create procedure insertProduct(In prId  varchar(5),In proName text,In catId varchar(5),In desPr nvarchar(50),In desPrDt text,In img text ,In pricePr float,In prStatus bit)
+begin
+    insert into Product
+        values (prId,proName,catId,desPr,desPrDt,img,pricePr,prStatus);
+end &&;
+
+DELIMITER &&
+drop procedure if exists updateProduct;
+create procedure updateProduct(In prId  varchar(5),In proName text,In catId varchar(5),In desPr nvarchar(50),In desPrDt text,In img text ,In pricePr float,In prStatus bit)
+begin
+   update Product
+       set productName=proName,
+           catalogId=catId,
+           descriptions=desPr,
+           descriptionsDetails=desPrDt,
+           image=img,
+           price=pricePr,
+           productStatus=prStatus
+    where productId=prId;
+
+end &&;
+DELIMITER &&
+drop procedure if exists deleteProduct;
+create procedure deleteProduct(In prId varchar(5))
+begin
+    update Product
+    set  productStatus=0
+    where productId=prId;
+end &&;
+
+DELIMITER &&
+drop procedure if exists getAllDataForUsers;
+create procedure getAllDataForUsers()
+begin
+    select  p.productName , p.descriptions,  p.image, p.price, p.productStatus
+    from Product p join catalog c on p.catalogId = c.catalogId;
+end &&;
+
+DELIMITER &&
+drop procedure if exists getByIdDataForUsers;
+create procedure getByIdDataForUsers(In prId varchar(5))
+begin
+    select  p.productName , p.descriptions,  p.image, p.price, p.productStatus
+    from Product p join catalog c on p.catalogId = c.catalogId
+    where productId=prId;
+end &&;
+
+
