@@ -281,7 +281,7 @@
                                 <th>Product Name</th>
                                 <th>Category</th>
                                 <th>Description</th>
-                                <th>Quatity</th>
+                                <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Status</th>
                                 <th colspan="3">Action</th>
@@ -295,7 +295,7 @@
                                     <td>${pro.productName}</td>
                                     <td>${pro.catalogId}</td>
                                     <td>${pro.descriptions}</td>
-                                    <td>${pro.quatity}</td>
+                                    <td>${pro.quantity}</td>
                                     <td>${pro.price}</td>
                                     <td>${pro.productStatus?"Hoạt Động":"Không Hoạt Động"}</td>
                                     <td>
@@ -319,11 +319,6 @@
                                     <form action="<%=request.getContextPath()%>/ProductServlet" method="post">
                                         <div class="modal-body">
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="productId">Product Id</span>
-                                                <input type="text" name="productId" class="form-control" placeholder="Input product id"
-                                                       aria-label="ProductId" aria-describedby="basic-addon1">
-                                            </div>
-                                            <div class="input-group mb-3">
                                                 <span class="input-group-text" id="productName">productName</span>
                                                 <input type="text" name="productName" class="form-control" placeholder="Input productName"
                                                        aria-label="ProductName" aria-describedby="basic-addon1">
@@ -342,9 +337,9 @@
                                                        aria-label="Descriptions" aria-describedby="basic-addon1">
                                             </div>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="quatity">Quatity</span>
-                                                <input type="number" name="quatity" class="form-control" placeholder="Input quatity"
-                                                       aria-label="quatity" aria-describedby="basic-addon1">
+                                                <span class="input-group-text" id="quantity">Quantity</span>
+                                                <input type="number" name="quantity" class="form-control" placeholder="Input quantity"
+                                                       aria-label="quantity" aria-describedby="basic-addon1">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="image">Image</span>

@@ -14,31 +14,31 @@ public class ProductDetailsServiceImp implements ProductDetailsService<ProductDe
     private ProductDetailsDao<ProductDetails,Integer> productDetailsDao=new ProductDetailsDaoImp();
     @Override
     public List<ProductDetails> findAll() {
-        return findAll();
+        return productDetailsDao.findAll();
     }
 
     @Override
     public ProductDetails findById(Integer id) {
-        return null;
+        return productDetailsDao.findById(id);
     }
 
     @Override
     public boolean save(ProductDetails productDetails) {
-        return false;
+        return productDetailsDao.save(productDetails);
     }
 
     @Override
     public boolean update(ProductDetails productDetails) {
-        return false;
+        return productDetailsDao.update(productDetails);
     }
 
     @Override
     public boolean delete(Integer id) {
-        return false;
+        return productDetailsDao.delete(id);
     }
 
     @Override
     public List<ProductDetails> searchByName(String name) {
-        return null;
+        return productDetailsDao.searchByName(name);
     }
 }

@@ -248,7 +248,7 @@
             <div class="container-fluid p-0">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Demo Category Table</h3>
+                        <h3 class="card-title">Size Table</h3>
                         <nav class="navbar navbar-expand-lg bg-light">
                             <div class="container-fluid">
                                 <a class="navbar-brand" href="#">

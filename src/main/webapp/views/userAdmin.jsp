@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +43,7 @@
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="<%=request.getContextPath()%>/views/catalog.jsp">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
                     </a>
@@ -50,7 +53,7 @@
                         <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="<%=request.getContextPath()%>/views/userAdmin.jsp">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                     </a>
@@ -245,17 +248,20 @@
             <div class="container-fluid p-0">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Demo User Table</h3>
+                        <h3 class="card-title">Demo Category Table</h3>
                         <nav class="navbar navbar-expand-lg bg-light">
                             <div class="container-fluid">
                                 <a class="navbar-brand" href="#">
-                                    <button type="button" class="btn btn-success">+ Create new Account</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#newUserModal">
+                                        Create New User
+                                    </button>
                                 </a>
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2 fst-italic" type="search"
-                                           placeholder="Enter user's name... "
-                                           aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                <form class="d-flex" role="search" action="<%=request.getContextPath()%>/UserServlet">
+                                    <input class="form-control me-2 fst-italic" type="text"
+                                           placeholder="Enter catalog's name... "
+                                           aria-label="Search" name="searchName">
+                                    <input class="btn btn-outline-success" type="submit" value="search" name="action"/>
                                 </form>
                             </div>
                         </nav>
@@ -265,33 +271,129 @@
                         <table id="example1" class="table table-bordered table-striped text-center">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Image</th>
+                                <th>User ID</th>
                                 <th>Username</th>
+                                <th>Pass Words</th>
                                 <th>FullName</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Access Right</th>
+                                <th>Confrim PassWords</th>
                                 <th>Date of birth</th>
-                                <th>Status</th>
                                 <th colspan="2">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>user1</td>
-                                <td>Chris Hung</td>
-                                <td>22/02/2022</td>
-                                <td>Online</td>
-                                <td>
-                                    <button type="button" class="btn btn-success">Unlock</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger">Lock</button>
-                                </td>
-                            </tr>
-
-
+                            <c:forEach items="${userList}" var="user">
+                                <tr>
+                                    <td><img src="<%=request.getContextPath()%>/images/${user.imageUser}" style="border-radius: 50%" width="20px" alt="#"></td>
+                                    <td>${user.userId}</td>
+                                    <td>${user.userName}</td>
+                                    <td>${user.passWords}</td>
+                                    <td>${user.fullName}</td>
+                                    <td>${user.phone}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.address}</td>
+                                    <td>${user.userStatus?"Admin":"User"}</td>
+                                    <td>${user.confrimPassWords}</td>
+                                    <td><fmt:formatDate value="${user.birthDate}" pattern="yyyy-MM-dd"/></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning"><a
+                                                href="<%=request.getContextPath()%>/UserServlet?userId=${user.userId}&&action=update">Edit</a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"><a
+                                                href="<%=request.getContextPath()%>/UserServlet?userId=${user.userId}&&action=delete">Delete</a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
 
                         </table>
+                        <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="<%=request.getContextPath()%>/UserServlet" method="post">
+                                        <div class="modal-body">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="userName">User Name</span>
+                                                <input type="text" name="userName" class="form-control"
+                                                       placeholder="Input userName"
+                                                       aria-label="userName" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="passWords">PassWords</span>
+                                                <input type="text" name="passWords" class="form-control"
+                                                       placeholder="Input passWords"
+                                                       aria-label="passWords" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="fullName">FullName</span>
+                                                <input type="text" name="fullName" class="form-control"
+                                                       placeholder="Input fullName"
+                                                       aria-label="fullName" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="phone">Phone</span>
+                                                <input type="text" name="phone" class="form-control"
+                                                       placeholder="Input phone"
+                                                       aria-label="phone" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="email">Email</span>
+                                                <input type="text" name="email" class="form-control"
+                                                       placeholder="Input email"
+                                                       aria-label="email" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="address">Address</span>
+                                                <input type="text" name="address" class="form-control"
+                                                       placeholder="Input address"
+                                                       aria-label="address" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <label class="input-group-text" for="userStatus">UserStatus
+                                                   </label>
+                                                <select class="form-select" id="userStatus" name="userStatus">
+                                                    <option value="true">Active</option>
+                                                    <option value="false" selected>Inactive</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="confrimPassWords">ConfrimPassWords</span>
+                                                <input type="text" name="confrimPassWords" class="form-control"
+                                                       placeholder="Input confrimPassWords"
+                                                       aria-label="confrimPassWords" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="birthDate">BirthDate</span>
+                                                <input type="date" name="birthDate" class="form-control"
+                                                       placeholder="Input birthDate"
+                                                       aria-label="birthDate" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="imageUser">ImageUser</span>
+                                                <input type="file" name="imageUser" class="form-control"
+                                                       placeholder="Input imageUser"
+                                                       aria-label="imageUser" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <input type="submit" name="action" value="add" class="btn btn-primary"/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <nav aria-label="Page navigation example ">
                         <ul class="pagination float-end mx-4">
@@ -308,9 +410,7 @@
                     </nav>
                     <!-- /.card-body -->
                 </div>
-
             </div>
-
         </main>
 
     </div>

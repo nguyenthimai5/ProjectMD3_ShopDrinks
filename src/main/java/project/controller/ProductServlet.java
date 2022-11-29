@@ -24,7 +24,7 @@ import java.util.List;
         maxRequestSize = 1024*1024*10
 )
 public class ProductServlet extends HttpServlet {
-    private ProductService<Product,String> productService=new ProductServiceImp();
+    private ProductService<Product,Integer> productService=new ProductServiceImp();
     private CatalogService<Catalog,String> catalogService = new CatalogServiceImp();
 
     @Override
@@ -33,14 +33,14 @@ public class ProductServlet extends HttpServlet {
         String action=request.getParameter("action");
         if (action != null && action.equals("Update")) {
             String prId = request.getParameter("productId");
-            Product proUpdate=productService.findById(prId);
+            Product proUpdate=productService.findById(Integer.parseInt(prId));
             List<Catalog> listCatalogUp = catalogService.findAll();
             request.setAttribute("listCatalogUp",listCatalogUp);
             request.setAttribute("proUpdate", proUpdate);
             request.getRequestDispatcher("views/updateProduct.jsp").forward(request,response);
         } else if (action != null && action.equals("delete")) {
             String prId = request.getParameter("productId");
-            boolean result = productService.delete(prId);
+            boolean result = productService.delete(Integer.parseInt(prId));
             if (result) {
                 getAllProduct(request,response);
             }
@@ -71,11 +71,11 @@ public class ProductServlet extends HttpServlet {
 
         if (action != null && action.equals("add")) {
             Product product=new Product();
-            product.setProductId(request.getParameter("productId"));
+//            product.setProductId(Integer.parseInt(request.getParameter("productId")));
             product.setProductName(request.getParameter("productName"));
             product.setCatalogId(request.getParameter("catalogId"));
             product.setDescriptions(request.getParameter("descriptions"));
-            product.setQuatity(Integer.parseInt(request.getParameter("quatity")));
+            product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
             product.setImage(request.getParameter("image"));
             product.setPrice(Float.parseFloat(request.getParameter("price")));
             product.setProductStatus(Boolean.parseBoolean(request.getParameter("productStatus")));
@@ -85,11 +85,11 @@ public class ProductServlet extends HttpServlet {
             }
         } else if (action != null && action.equals("Update")) {
             Product product=new Product();
-            product.setProductId(request.getParameter("productId"));
+            product.setProductId(Integer.parseInt(request.getParameter("productId")));
             product.setProductName(request.getParameter("productName"));
             product.setCatalogId(request.getParameter("catalogId"));
             product.setDescriptions(request.getParameter("descriptions"));
-            product.setQuatity(Integer.parseInt(request.getParameter("quatity")));
+            product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
             if(request.getParameter("image")==null||request.getParameter("image")==""){
                 product.setImage(request.getParameter("oldImg"));
             }else {

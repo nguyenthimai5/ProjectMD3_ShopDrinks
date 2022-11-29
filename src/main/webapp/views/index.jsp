@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -6,14 +7,14 @@
     <title>Shop Drinks</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/animate.css">
-    
+
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/magnific-popup.css">
@@ -25,7 +26,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/jquery.timepicker.css">
 
-    
+
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
@@ -41,7 +42,7 @@
 
 		  <div class="collapse navbar-collapse" id="ftco-nav">
 			  <ul class="navbar-nav ml-auto">
-				  <li class="nav-item active"><a href="<%=request.getContextPath()%>/index.jsp" class="nav-link">Home</a></li>
+				  <li class="nav-item active"><a href="<%=request.getContextPath()%>/HomeServlet?action=home" class="nav-link">Home</a></li>
 				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/shop.jsp" class="nav-link">Shop</a></li>
 				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/wishlist.jsp" class="nav-link">WishList</a></li>
 				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/about.jsp" class="nav-link">About</a></li>
@@ -100,235 +101,39 @@
             <h2 class="mb-4">Sản Phẩm</h2>
             <p> Nhập khẩu sự tinh tế, phân phối niềm đam mê </p>
           </div>
-        </div>   		
+        </div>
     	</div>
     	<div class="container">
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="<%=request.getContextPath()%>/views/product-single.jsp" id="anh" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/nước%20cam.jpg" alt="Nước Cam">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Nước Cam</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-									<p class="price"><span>$70.00</span></p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/trà chanh.jpg" alt="Trà Chanh">
-							<div class="overlay"></div>
-						</a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Trà Chanh</a></h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price"><span>$10.00</span></p>
+						<c:forEach items="${productList}" var="pro">
+							<a href="<%=request.getContextPath()%>/views/product-single.jsp" id="anh" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/${pro.image}" alt="${pro.productName}">
+								<div class="overlay"></div>
+							</a>
+							<div class="text py-3 pb-4 px-3 text-center">
+								<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">${pro.productName}</a></h3>
+								<div class="d-flex">
+									<div class="pricing">
+										<p class="price"><span>${pro.price}VNĐ</span></p>
+									</div>
+								</div>
+								<div class="bottom-area d-flex px-3">
+									<div class="m-auto d-flex">
+										<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+											<span><i class="ion-ios-menu"></i></span>
+										</a>
+										<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
+											<span><i class="ion-ios-cart"></i></span>
+										</a>
+										<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
+											<span><i class="ion-ios-heart"></i></span>
+										</a>
+									</div>
 								</div>
 							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/Trà sữa việt quất.jpg" alt="Trà Sữa Vị Việt Quất">
-							<div class="overlay"></div>
-						</a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Trà sữa vị Việt Quất</a></h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price"><span>$35.00</span></p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+						</c:forEach>
 
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/trà vải.jpg" alt="Trà Vải">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Trà Vải</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$20.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/trà sữa truyền thống.jpg" alt="Trà Sữa Truyền Thống">
-							<div class="overlay"></div>
-						</a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Trà Sữa Truyền Thống</a></h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price"><span>$45.00</span></p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/Nước ép KiWi.jpg" alt="Nước ép KiWi">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Nước ép KiWi</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-									<p class="price"><span>$50.00</span></p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-				<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/Nước dâu.jpg" alt="Nước Dâu">
-							<div class="overlay"></div>
-						</a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Nước Dâu</a></h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price"><span>$35.00</span></p>
-								</div>
-							</div>
-							<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</a>
-									<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/trà sữa khoai môn.jpg" alt="Trà sữa khaoi môn">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">Trà sữa khoai môn</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$25.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
     				</div>
     			</div>
     		</div>
@@ -541,8 +346,8 @@
         </div>
       </div>
     </footer>
-    
-  
+
+
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
@@ -564,6 +369,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/js/main.js"></script>
-    
+
+
   </body>
 </html>

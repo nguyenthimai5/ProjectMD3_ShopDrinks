@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDaoImp implements ProductDao<Product, String> {
+public class ProductDaoImp implements ProductDao<Product, Integer> {
     @Override
     public List<Product> findAll() {
         List<Product> productList = null;
@@ -25,11 +25,11 @@ public class ProductDaoImp implements ProductDao<Product, String> {
             productList = new ArrayList<>();
             while (rs.next()) {
                 Product product = new Product();
-                product.setProductId(rs.getString("productId"));
+                product.setProductId(rs.getInt("productId"));
                 product.setProductName(rs.getString("productName"));
                 product.setCatalogId(rs.getString("catalogId"));
                 product.setDescriptions(rs.getString("descriptions"));
-                product.setQuatity(rs.getInt("quatity"));
+                product.setQuantity(rs.getInt("quantity"));
                 product.setImage(rs.getString("image"));
                 product.setPrice(rs.getFloat("price"));
                 product.setProductStatus(rs.getBoolean("productStatus"));
@@ -44,24 +44,24 @@ public class ProductDaoImp implements ProductDao<Product, String> {
     }
 
     @Override
-    public Product findById(String id) {
+    public Product findById(Integer id) {
         Product product = null;
         Connection conn = null;
         CallableStatement callSt = null;
         try {
             conn = ConnectionDB.openConnection();
             callSt = conn.prepareCall("{call getByIdProduct(?)}");
-            callSt.setString(1, id);
+            callSt.setInt(1, id);
             ResultSet rs = callSt.executeQuery();
             product = new Product();
 
             if (rs.next()) {
 
-                product.setProductId(rs.getString("productId"));
+                product.setProductId(rs.getInt("productId"));
                 product.setProductName(rs.getString("productName"));
                 product.setCatalogId(rs.getString("catalogId"));
                 product.setDescriptions(rs.getString("descriptions"));
-                product.setQuatity(rs.getInt("quatity"));
+                product.setQuantity(rs.getInt("quantity"));
                 product.setImage(rs.getString("image"));
                 product.setPrice(rs.getFloat("price"));
                 product.setProductStatus(rs.getBoolean("productStatus"));
@@ -82,15 +82,14 @@ public class ProductDaoImp implements ProductDao<Product, String> {
         CallableStatement callSt = null;
         try {
             conn = ConnectionDB.openConnection();
-            callSt = conn.prepareCall("{call insertProduct(?,?,?,?,?,?,?,?)}");
-            callSt.setString(1, product.getProductId());
-            callSt.setString(2, product.getProductName());
-            callSt.setString(3, product.getCatalogId());
-            callSt.setString(4, product.getDescriptions());
-            callSt.setInt(5, product.getQuatity());
-            callSt.setString(6, product.getImage());
-            callSt.setFloat(7, product.getPrice());
-            callSt.setBoolean(8, product.isProductStatus());
+            callSt = conn.prepareCall("{call insertProduct(?,?,?,?,?,?,?)}");
+            callSt.setString(1, product.getProductName());
+            callSt.setString(2, product.getCatalogId());
+            callSt.setString(3, product.getDescriptions());
+            callSt.setInt(4, product.getQuantity());
+            callSt.setString(5, product.getImage());
+            callSt.setFloat(6, product.getPrice());
+            callSt.setBoolean(7, product.isProductStatus());
             callSt.executeUpdate();
 
         } catch (SQLException e) {
@@ -110,11 +109,11 @@ public class ProductDaoImp implements ProductDao<Product, String> {
         try{
             conn= ConnectionDB.openConnection();
             callSt= conn.prepareCall("{call updateProduct(?,?,?,?,?,?,?,?)}");
-            callSt.setString(1, product.getProductId());
+            callSt.setInt(1, product.getProductId());
             callSt.setString(2, product.getProductName());
             callSt.setString(3, product.getCatalogId());
             callSt.setString(4, product.getDescriptions());
-            callSt.setInt(5, product.getQuatity());
+            callSt.setInt(5, product.getQuantity());
             callSt.setString(6, product.getImage());
             callSt.setFloat(7, product.getPrice());
             callSt.setBoolean(8, product.isProductStatus());
@@ -130,14 +129,14 @@ public class ProductDaoImp implements ProductDao<Product, String> {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(Integer id) {
         boolean result=true;
         Connection conn=null;
         CallableStatement callSt=null;
         try{
             conn= ConnectionDB.openConnection();
             callSt= conn.prepareCall("{call deleteProduct(?)}");
-            callSt.setString(1,id);
+            callSt.setInt(1,id);
             callSt.executeUpdate();
 
         } catch (SQLException e) {
@@ -162,11 +161,11 @@ public class ProductDaoImp implements ProductDao<Product, String> {
             productListsearch   = new ArrayList<>();
             while (rs.next()) {
                 Product product = new Product();
-                product.setProductId(rs.getString("productId"));
+                product.setProductId(rs.getInt("productId"));
                 product.setProductName(rs.getString("productName"));
                 product.setCatalogId(rs.getString("catalogId"));
                 product.setDescriptions(rs.getString("descriptions"));
-                product.setQuatity(rs.getInt("quatity"));
+                product.setQuantity(rs.getInt("quantity"));
                 product.setImage(rs.getString("image"));
                 product.setPrice(rs.getFloat("price"));
                 product.setProductStatus(rs.getBoolean("productStatus"));

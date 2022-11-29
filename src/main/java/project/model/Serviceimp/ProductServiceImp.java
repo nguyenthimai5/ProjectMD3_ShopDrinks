@@ -10,15 +10,16 @@ import project.model.entity.Size;
 
 import java.util.List;
 
-public class ProductServiceImp implements ProductService<Product,String> {
-    private ProductDao<Product,String> productDao=new ProductDaoImp();
+public class ProductServiceImp implements ProductService<Product,Integer> {
+    private ProductDao<Product,Integer> productDao=new ProductDaoImp();
+
     @Override
     public List<Product> findAll() {
         return productDao.findAll();
     }
 
     @Override
-    public Product findById(String id) {
+    public Product findById(Integer id) {
         return productDao.findById(id);
     }
 
@@ -33,7 +34,7 @@ public class ProductServiceImp implements ProductService<Product,String> {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(Integer id) {
         return productDao.delete(id);
     }
 

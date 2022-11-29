@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -12,8 +11,6 @@
   <meta name="author" content="AdminKit">
   <meta name="keywords"
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
 
@@ -44,7 +41,7 @@
             <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
           </a>
         </li>
-        <li class="sidebar-item active">
+        <li class="sidebar-item">
           <a class="sidebar-link" href="<%=request.getContextPath()%>/views/catalog.jsp">
             <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
           </a>
@@ -54,7 +51,7 @@
             <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
           </a>
         </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item active">
           <a class="sidebar-link" href="<%=request.getContextPath()%>/views/userAdmin.jsp">
             <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
           </a>
@@ -249,75 +246,86 @@
       <div class="container-fluid p-0">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Product Update Table</h3>
+            <h3 class="card-title">Demo User Table</h3>
             <nav class="navbar navbar-expand-lg bg-light">
               <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                  <button type="button" class="btn btn-success">+ Create new Account</button>
+                </a>
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2 fst-italic" type="search"
+                         placeholder="Enter user's name... "
+                         aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
               </div>
             </nav>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form action="<%=request.getContextPath()%>/ProductServlet" method="post">
+            <form action="<%=request.getContextPath()%>/UserServlet" method="post">
               <table id="example1" class="table table-bordered table-striped text-center" border="1">
                 <tr>
-                  <td>Product Id</td>
-                  <td><input type="number" name="productId" value="${proUpdate.productId}"readonly></td>
+                  <td>User Id</td>
+                  <td><input type="text" name="userId" value="${userUp.userId}"readonly></td>
                 </tr>
                 <tr>
-                  <td>Product Name</td>
-                  <td><input type="text" name="productName" value="${proUpdate.productName}"></td>
+                  <td>User Name</td>
+                  <td><input type="text" name="userName" value="${userUp.userName}"></td>
                 </tr>
                 <tr>
-                  <td>Catalog Parent</td>
-                <td>
-                <div class="input-group mb-3">
-                  <label class="input-group-text" for="catalogId">Catalog Parent</label>
-                    <select class="form-select" id="catalogId" name="catalogId">
-                      <option value="${proUpdate.catalogId}" selected>${proUpdate.catalogId}</option>
-                      <c:forEach items="${listCatalogUp}" var="cat">
-                        <option value="${cat.catalogId}">${cat.catalogName}</option>
-                      </c:forEach>
-                    </select>
-                </div>
-                </td>
+                  <td>Pass Words</td>
+                  <td><input type="password" name="passWords" value="${userUp.passWords}"></td>
                 </tr>
                 <tr>
-                  <td>Descriptions</td>
-                  <td><input type="text" name="descriptions" value="${proUpdate.descriptions}"></td>
+                  <td>Full Name</td>
+                  <td><input type="text" name="fullName" value="${userUp.fullName}"></td>
                 </tr>
                 <tr>
-                  <td>Quantity</td>
-                  <td><input type="number" name="quantity" value="${proUpdate.quantity}"></td>
+                  <td>Phone</td>
+                  <td><input type="text" name="phone" value="${userUp.phone}"></td>
                 </tr>
                 <tr>
-                  <td>Image</td>
-                  <td> <img src="<%=request.getContextPath()%>/images/${proUpdate.image}" width="35%"  alt="${proUpdate.image}">
-                    <input type="file" name="image"></td>
-                  <input type="hidden"   value="${proUpdate.image}" name = "oldImg">
+                  <td>Email</td>
+                  <td><input type="email" name="email" value="${userUp.email}"></td>
                 </tr>
                 <tr>
-                  <td>Price</td>
-                  <td><input type="number" name="price" value="${proUpdate.price}"></td>
+                  <td>Address</td>
+                  <td><input type="text" name="address" value="${userUp.address}"></td>
                 </tr>
                 <tr>
-                  <td>Product Status</td>
+                  <td>User Status</td>
                   <td>
                     <c:choose>
-                      <c:when test="${proUpdate.productStatus}">
-                        <input type="radio" name="productStatus" id="Active" value="true" checked/><lable for="Active">Hoạt Động</lable>
-                        <input type="radio" name="productStatus" id="InActive" value="false"/><lable for="InActive">Không Hoạt Động</lable>
+                      <c:when test="${userUp.userStatus}">
+                        <input type="radio" name="userStatus" id="Active" value="true" checked/><lable for="Active">Hoạt Động</lable>
+                        <input type="radio" name="userStatus" id="InActive" value="false"/><lable for="InActive">Không Hoạt Động</lable>
                       </c:when>
                       <c:otherwise>
-                        <input type="radio" name="productStatus" id="Active" value="true" /><lable for="Active">Hoạt Động</lable>
-                        <input type="radio" name="productStatus" id="InActive" value="false"checked/><lable for="InActive">Không Hoạt Động</lable>
+                        <input type="radio" name="userStatus" id="Active" value="true" /><lable for="Active">Hoạt Động</lable>
+                        <input type="radio" name="userStatus" id="InActive" value="false"checked/><lable for="InActive">Không Hoạt Động</lable>
                       </c:otherwise>
                     </c:choose>
 
                   </td>
                 </tr>
                 <tr>
+                  <td>Confrim PassWords</td>
+                  <td><input type="password" name="confrimPassWords" value="${userUp.confrimPassWords}"></td>
+                </tr>
+                <tr>
+                  <td>Birth Date</td>
+                  <td><input type="date" name="birthDate" value="${userUp.birthDate}"></td>
+                </tr>
+                <tr>
+                  <td>Image</td>
+                  <td> <img src="<%=request.getContextPath()%>/images/${userUp.imageUser}" width="25%" style="border-radius: 20px" alt="${userUp.imageUser}">
+                    <input type="file" name="imageUser"></td>
+                  <input type="hidden"   value="${userUp.imageUser}" name = "oldImg">
+                </tr>
+                <tr>
                   <td colspan="5">
-                    <input type="submit" value="Update" name="action"/>
+                    <input type="submit" value="update" name="action"/>
                   </td>
                 </tr>
               </table>
@@ -338,14 +346,15 @@
           </nav>
           <!-- /.card-body -->
         </div>
+
       </div>
+
     </main>
 
   </div>
 </div>
 
 <script src="<%=request.getContextPath()%>/js/app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -572,9 +581,3 @@
 </body>
 
 </html>
-
-
-
-
-
-

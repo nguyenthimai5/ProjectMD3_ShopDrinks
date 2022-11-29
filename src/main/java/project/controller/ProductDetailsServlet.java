@@ -24,7 +24,7 @@ public class ProductDetailsServlet extends HttpServlet {
 
     private ProductDetailsService<ProductDetails,Integer> productDetailsService=new ProductDetailsServiceImp();
     private SizeService<Size,String> sizeService=new SizeServiceImp();
-    private ProductService<Product,String> productService=new ProductServiceImp();
+    private ProductService<Product,Integer> productService=new ProductServiceImp();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,9 +34,11 @@ public class ProductDetailsServlet extends HttpServlet {
             String prDtId = request.getParameter("proDetailsId");
             ProductDetails proDtUp=productDetailsService.findById(Integer.parseInt(prDtId));
             List<Size> sizeListUp=sizeService.findAll();
+            List<Product> productListUp=productService.findAll();
+            request.setAttribute("productListUp",productListUp);
             request.setAttribute("proDtUp",proDtUp);
             request.setAttribute("sizeListUp",sizeListUp);
-            request.getRequestDispatcher("views/ProductUpdateDt.jsp").forward(request,response);
+            request.getRequestDispatcher("views/updateProductDetails.jsp").forward(request,response);
         } else if (action != null && action.equals("delete")) {
             String prDtId = request.getParameter("proDetailsId");
             boolean result = productDetailsService.delete(Integer.parseInt(prDtId));
@@ -51,11 +53,11 @@ public class ProductDetailsServlet extends HttpServlet {
     public void getAllProductDt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         List<ProductDetails> productDetailsList=productDetailsService.findAll();
+        request.setAttribute("productDetailsList",productDetailsList);
         List<Size> sizeList=sizeService.findAll();
+        request.setAttribute("sizeList",sizeList);
         List<Product> productList=productService.findAll();
         request.setAttribute("productList",productList);
-        request.setAttribute("productDetailsList",productDetailsList);
-        request.setAttribute("sizeList",sizeList);
         request.getRequestDispatcher("views/ProductDetails.jsp").forward(request, response);
     }
 
@@ -66,7 +68,7 @@ public class ProductDetailsServlet extends HttpServlet {
 
         if (action != null && action.equals("add")) {
             ProductDetails productDetails=new ProductDetails();
-            productDetails.setProductId(request.getParameter("productId"));
+            productDetails.setProductId(Integer.parseInt(request.getParameter("productId")));
             productDetails.setSizeId(request.getParameter("sizeId"));
             productDetails.setPricePrDt(Float.parseFloat(request.getParameter("pricePrDt")));
             productDetails.setProDtStatus(Boolean.parseBoolean(request.getParameter("proDtStatus")));
@@ -76,7 +78,8 @@ public class ProductDetailsServlet extends HttpServlet {
             }
         } else if (action != null && action.equals("Update")) {
             ProductDetails productDetails=new ProductDetails();
-            productDetails.setProductId(request.getParameter("productId"));
+            productDetails.setProDetailsId(Integer.parseInt(request.getParameter("proDetailsId")));
+            productDetails.setProductId(Integer.parseInt(request.getParameter("productId")));
             productDetails.setSizeId(request.getParameter("sizeId"));
             productDetails.setPricePrDt(Float.parseFloat(request.getParameter("pricePrDt")));
             productDetails.setProDtStatus(Boolean.parseBoolean(request.getParameter("proDtStatus")));

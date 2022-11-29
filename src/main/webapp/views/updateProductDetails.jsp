@@ -12,6 +12,7 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
@@ -248,41 +249,61 @@
             <div class="container-fluid p-0">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Update Catalog Table</h3>
+                        <h3 class="card-title">ProductDetails Table Update</h3>
                         <nav class="navbar navbar-expand-lg bg-light">
                             <div class="container-fluid">
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2 fst-italic" type="search"
-                                           placeholder="Enter category's name... "
-                                           aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit" value="search" name="action">Search</button>
-                                </form>
                             </div>
                         </nav>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="<%=request.getContextPath()%>/CatalogServlet" method="post">
+                        <form action="<%=request.getContextPath()%>/ProductDetailsServlet" method="post">
                             <table id="example1" class="table table-bordered table-striped text-center" border="1">
                                 <tr>
-                                    <td>CatalogId</td>
-                                    <td><input type="text" name="catalogId" value="${catalogUpdate.catalogId}"readonly></td>
+                                    <td>ProductDetails Id</td>
+                                    <td><input type="number" name="proDetailsId" value="${proDtUp.proDetailsId}"readonly></td>
                                 </tr>
                                 <tr>
-                                    <td>Catalog Name</td>
-                                    <td><input type="text" name="catalogName" value="${catalogUpdate.catalogName}"></td>
+                                    <td>Product Id</td>
+                                    <td><div class="input-group mb-3">
+                                        <label class="input-group-text" for="productId">Product Id</label>
+                                        <select class="form-select" id="productId" name="productId">
+                                            <option value="${proDtUp.productId}" selected>${proDtUp.productId}</option>
+                                            <c:forEach items="${productListUp}" var="pr">
+                                                <option value="${pr.productId}">${pr.productName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Status</td>
+                                    <td>Size Id</td>
+                                    <td><div class="input-group mb-3">
+                                        <label class="input-group-text" for="sizeId">Size Id</label>
+                                        <select class="form-select" id="sizeId" name="sizeId">
+                                            <option value="${proDtUp.sizeId}" selected>${proDtUp.sizeId}</option>
+                                            <c:forEach items="${sizeListUp}" var="size">
+                                                <option value="${size.sizeId}">${size.sizeName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Price Details</td>
+                                    <td><input type="number" name="pricePrDt" value="${proDtUp.pricePrDt}"></td>
+                                </tr>
+                                <tr>
+                                    <td>ProductDetails Status</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${catalogUpdate.catalogStatus}">
-                                                <input type="radio" name="catalogStatus" id="Active" value="true" checked/><lable for="Active">Hoạt Động</lable>
-                                                <input type="radio" name="catalogStatus" id="InActive" value="false"/><lable for="InActive">Không Hoạt Động</lable>
+                                            <c:when test="${proDtUp.proDtStatus}">
+                                                <input type="radio" name="proDtStatus" id="Active" value="true" checked/><lable for="Active">Hoạt Động</lable>
+                                                <input type="radio" name="proDtStatus" id="InActive" value="false"/><lable for="InActive">Không Hoạt Động</lable>
                                             </c:when>
                                             <c:otherwise>
-                                                <input type="radio" name="catalogStatus" id="Active" value="true" /><lable for="Active">Hoạt Động</lable>
-                                                <input type="radio" name="catalogStatus" id="InActive" value="false"checked/><lable for="InActive">Không Hoạt Động</lable>
+                                                <input type="radio" name="proDtStatus" id="Active" value="true" /><lable for="Active">Hoạt Động</lable>
+                                                <input type="radio" name="proDtStatus" id="InActive" value="false"checked/><lable for="InActive">Không Hoạt Động</lable>
                                             </c:otherwise>
                                         </c:choose>
 
@@ -290,7 +311,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5">
-                                        <input type="submit" value="update" name="action"/>
+                                        <input type="submit" value="Update" name="action"/>
                                     </td>
                                 </tr>
                             </table>
@@ -318,6 +339,7 @@
 </div>
 
 <script src="<%=request.getContextPath()%>/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

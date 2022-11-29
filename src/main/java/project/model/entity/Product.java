@@ -1,11 +1,11 @@
 package project.model.entity;
 
 public class Product {
-    private String productId;
+    private int productId;
     private String productName;
     private String catalogId;
     private String descriptions;
-    private int quatity;
+    private int quantity;
     private String image;
     private float price;
     private boolean productStatus;
@@ -13,22 +13,22 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productId, String productName, String catalogId, String descriptions, int quatity, String image, float price, boolean productStatus) {
+    public Product(int productId, String productName, String catalogId, String descriptions, int quantity, String image, float price, boolean productStatus) {
         this.productId = productId;
         this.productName = productName;
         this.catalogId = catalogId;
         this.descriptions = descriptions;
-        this.quatity = quatity;
+        this.quantity = quantity;
         this.image = image;
         this.price = price;
         this.productStatus = productStatus;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
@@ -56,12 +56,12 @@ public class Product {
         this.descriptions = descriptions;
     }
 
-    public int getQuatity() {
-        return quatity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuatity(int quatity) {
-        this.quatity = quatity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getImage() {

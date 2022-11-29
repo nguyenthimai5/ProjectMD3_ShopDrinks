@@ -2,7 +2,7 @@ package project.model.entity;
 
 public class ProductDetails {
     private int proDetailsId;
-    private String productId;
+    private int productId;
     private String sizeId;
     private float pricePrDt;
     private boolean proDtStatus;
@@ -10,7 +10,7 @@ public class ProductDetails {
     public ProductDetails() {
     }
 
-    public ProductDetails(int proDetailsId, String productId, String sizeId, float pricePrDt, boolean proDtStatus) {
+    public ProductDetails(int proDetailsId, int productId, String sizeId, float pricePrDt, boolean proDtStatus) {
         this.proDetailsId = proDetailsId;
         this.productId = productId;
         this.sizeId = sizeId;
@@ -26,11 +26,11 @@ public class ProductDetails {
         this.proDetailsId = proDetailsId;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 

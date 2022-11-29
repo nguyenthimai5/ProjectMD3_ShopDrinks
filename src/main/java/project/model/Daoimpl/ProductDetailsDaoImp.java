@@ -26,7 +26,7 @@ public class ProductDetailsDaoImp implements ProductDetailsDao<ProductDetails,In
             while (rs.next()) {
                 ProductDetails productDetails=new ProductDetails();
                 productDetails.setProDetailsId(rs.getInt("proDetailsId"));
-                productDetails.setProductId(rs.getString("productId"));
+                productDetails.setProductId(rs.getInt("productId"));
                 productDetails.setSizeId(rs.getString("sizeId"));
                 productDetails.setPricePrDt(rs.getFloat("pricePrDt"));
                 productDetails.setProDtStatus(rs.getBoolean("proDtStatus"));
@@ -54,7 +54,7 @@ public class ProductDetailsDaoImp implements ProductDetailsDao<ProductDetails,In
 
             if (rs.next()) {
                 productDetails.setProDetailsId(rs.getInt("proDetailsId"));
-                productDetails.setProductId(rs.getString("productId"));
+                productDetails.setProductId(rs.getInt("productId"));
                 productDetails.setSizeId(rs.getString("sizeId"));
                 productDetails.setPricePrDt(rs.getFloat("pricePrDt"));
                 productDetails.setProDtStatus(rs.getBoolean("proDtStatus"));
@@ -75,7 +75,7 @@ public class ProductDetailsDaoImp implements ProductDetailsDao<ProductDetails,In
         try {
             conn = ConnectionDB.openConnection();
             callSt = conn.prepareCall("{call insertProductDetails(?,?,?,?)}");
-            callSt.setString(1,productDetails.getProductId());
+            callSt.setInt(1,productDetails.getProductId());
             callSt.setString(2,productDetails.getSizeId());
             callSt.setFloat(3,productDetails.getPricePrDt());
             callSt.setBoolean(4,productDetails.isProDtStatus());
@@ -99,7 +99,7 @@ public class ProductDetailsDaoImp implements ProductDetailsDao<ProductDetails,In
             conn= ConnectionDB.openConnection();
             callSt= conn.prepareCall("{call updateProductDetails(?,?,?,?,?)}");
             callSt.setInt(1,productDetails.getProDetailsId());
-            callSt.setString(2,productDetails.getProductId());
+            callSt.setInt(2,productDetails.getProductId());
             callSt.setString(3,productDetails.getSizeId());
             callSt.setFloat(4,productDetails.getPricePrDt());
             callSt.setBoolean(5,productDetails.isProDtStatus());

@@ -231,7 +231,7 @@
                             <span class="text-dark">Drinks</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/ContactServlet"><i class="align-middle me-1"
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/views/contactAd.jsp"><i class="align-middle me-1"
                                                                                                                  data-feather="user"></i> Profile</a>
                             <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
                                 Analytics</a>
@@ -251,9 +251,20 @@
             <div class="container-fluid p-0">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Contact Table</h3>
+                        <h3 class="card-title">Product Table</h3>
                         <nav class="navbar navbar-expand-lg bg-light">
                             <div class="container-fluid">
+                                <a class="navbar-brand" href="#">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatalogModal">
+                                        Create New Product
+                                    </button>
+                                </a>
+                                <form class="d-flex" role="search" action="<%=request.getContextPath()%>/ProductServlet">
+                                    <input class="form-control me-2 fst-italic" type="text"
+                                           placeholder="Enter product's name... "
+                                           aria-label="Search" name="searchName">
+                                    <input class="btn btn-outline-success" type="submit" value="search" name="action"/>
+                                </form>
                             </div>
                         </nav>
                     </div>
@@ -265,22 +276,36 @@
                         <table id="example1" class="table table-bordered table-striped text-center">
                             <thead>
                             <tr>
-                                <th>Address</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Website</th>
-                                <th>Action</th>
+                                <th>Image</th>
+                                <th>Product ID</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th colspan="3">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${contactList}" var="con">
+                            <c:forEach items="${productList}" var="pro">
                                 <tr>
-                                    <td>${con.address}</td>
-                                    <td>${con.email}</td>
-                                    <td>${con.phone}</td>
-                                    <td>${con.website}</td>
+                                    <td><img src="<%=request.getContextPath()%>/images/${pro.image}" width="30px" alt="#"></td>
+                                    <td>${pro.productId}</td>
+                                    <td>${pro.productName}</td>
+                                    <td>${pro.catalogId}</td>
+                                    <td>${pro.descriptions}</td>
+                                    <td>${pro.quantity}</td>
+                                    <td>${pro.price}</td>
+                                    <td>${pro.productStatus?"Hoạt Động":"Không Hoạt Động"}</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning"><a href="<%=request.getContextPath()%>/ContactServlet?phone=${con.website}&&action=update">Edit</a></button>
+                                        <button type="button" class="btn btn-warning"><a href="<%=request.getContextPath()%>/ProductServlet?productId=${pro.productId}&&action=Update">Edit</a></button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger"><a href="<%=request.getContextPath()%>/ProductServlet?productId=${pro.productId}&&action=delete">Delete</a></button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-details" style="background-color: #93c47d"><a href="views/ProductDetails.jsp">Details</a></button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -293,11 +318,6 @@
                                 <div class="modal-content">
                                     <form action="<%=request.getContextPath()%>/ProductServlet" method="post">
                                         <div class="modal-body">
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="productId">Product Id</span>
-                                                <input type="text" name="productId" class="form-control" placeholder="Input product id"
-                                                       aria-label="ProductId" aria-describedby="basic-addon1">
-                                            </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="productName">productName</span>
                                                 <input type="text" name="productName" class="form-control" placeholder="Input productName"
@@ -317,9 +337,9 @@
                                                        aria-label="Descriptions" aria-describedby="basic-addon1">
                                             </div>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="quatity">Quatity</span>
-                                                <input type="number" name="quatity" class="form-control" placeholder="Input quatity"
-                                                       aria-label="quatity" aria-describedby="basic-addon1">
+                                                <span class="input-group-text" id="quantity">Quantity</span>
+                                                <input type="number" name="quantity" class="form-control" placeholder="Input quantity"
+                                                       aria-label="quantity" aria-describedby="basic-addon1">
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="image">Image</span>

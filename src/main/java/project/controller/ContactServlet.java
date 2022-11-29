@@ -39,18 +39,7 @@ public class ContactServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-
-        if (action != null && action.equals("add")) {
-            Contact contact=new Contact();
-            contact.setAddress(request.getParameter("address"));
-            contact.setEmail(request.getParameter("email"));
-            contact.setPhone(request.getParameter("phone"));
-            contact.setWebsite(request.getParameter("website"));
-            boolean result = contactService.save(contact);
-            if (result) {
-                getAllContact(request, response);
-            }
-        } else if (action != null && action.equals("update")) {
+        if (action != null && action.equals("update")) {
             Contact contact=new Contact();
             contact.setAddress(request.getParameter("address"));
             contact.setEmail(request.getParameter("email"));
