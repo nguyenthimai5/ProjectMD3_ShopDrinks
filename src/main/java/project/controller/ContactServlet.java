@@ -20,14 +20,14 @@ public class ContactServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action=request.getParameter("action");
-        if (action != null && action.equals("update")) {
-            String conId = request.getParameter("address");
-            Contact conUp=contactService.findById(conId);
-            request.setAttribute("conUp",conUp);
-            request.getRequestDispatcher("views/updateCatalog.jsp").forward(request, response);
-        } else {
+        if (action!=null&&action.equals("contact")) {
             getAllContact(request, response);
-        }
+        }else if (action != null && action.equals("update")) {
+                String conId = request.getParameter("address");
+                Contact conUp=contactService.findById(conId);
+                request.setAttribute("conUp",conUp);
+                request.getRequestDispatcher("views/updateCatalog.jsp").forward(request, response);
+            }
     }
     public void getAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

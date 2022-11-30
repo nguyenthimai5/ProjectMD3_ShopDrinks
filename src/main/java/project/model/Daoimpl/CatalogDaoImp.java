@@ -157,4 +157,29 @@ public class CatalogDaoImp implements CatalogDao<Catalog,String> {
         }
         return catalogsListsearch;
     }
+
+    @Override
+    public List<Catalog> findAllCatalogStatus() {
+        List<Catalog> catalogList=null;
+        Connection conn=null;
+        CallableStatement callSt=null;
+        try{
+            conn= ConnectionDB.openConnection();
+            callSt= conn.prepareCall("{call getAllCatalogStatus()}");
+            ResultSet rs=callSt.executeQuery();
+            catalogList=new ArrayList<>();
+            while (rs.next()){
+                Catalog cat=new Catalog();
+                cat.setCatalogId(rs.getString("catalogId"));
+                cat.setCatalogName(rs.getString("catalogName"));
+                cat.setCatalogStatus(rs.getBoolean("catalogStatus"));
+                catalogList.add(cat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionDB.closeConnection(conn,callSt);
+        }
+        return catalogList;
+    }
 }

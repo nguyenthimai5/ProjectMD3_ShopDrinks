@@ -33,8 +33,8 @@ public class ProductDetailsServlet extends HttpServlet {
         if (action != null && action.equals("Update")) {
             String prDtId = request.getParameter("proDetailsId");
             ProductDetails proDtUp=productDetailsService.findById(Integer.parseInt(prDtId));
-            List<Size> sizeListUp=sizeService.findAll();
-            List<Product> productListUp=productService.findAll();
+            List<Size> sizeListUp=sizeService.findAllSizeStatus();
+            List<Product> productListUp=productService.findAllProductStatus();
             request.setAttribute("productListUp",productListUp);
             request.setAttribute("proDtUp",proDtUp);
             request.setAttribute("sizeListUp",sizeListUp);
@@ -54,9 +54,9 @@ public class ProductDetailsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         List<ProductDetails> productDetailsList=productDetailsService.findAll();
         request.setAttribute("productDetailsList",productDetailsList);
-        List<Size> sizeList=sizeService.findAll();
+        List<Size> sizeList=sizeService.findAllSizeStatus();
         request.setAttribute("sizeList",sizeList);
-        List<Product> productList=productService.findAll();
+        List<Product> productList=productService.findAllProductStatus();
         request.setAttribute("productList",productList);
         request.getRequestDispatcher("views/ProductDetails.jsp").forward(request, response);
     }

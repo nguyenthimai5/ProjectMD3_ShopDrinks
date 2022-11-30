@@ -38,4 +38,9 @@ public class CatalogServiceImp implements CatalogService<Catalog,String> {
     public List<Catalog> searchByName(String name) {
         return catalogDao.searchByName(name);
     }
+
+    @Override
+    public List<Catalog> findAllCatalogStatus() {
+      return   catalogDao.findAllCatalogStatus();
+    }
 }

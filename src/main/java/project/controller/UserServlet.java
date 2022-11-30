@@ -29,29 +29,30 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action=request.getParameter("action");
-        if (action != null && action.equals("update")) {
-            String userId = request.getParameter("userId");
-            User userUp=userService.findById(Integer.parseInt(userId));
-            request.setAttribute("userUp", userUp);
-            request.getRequestDispatcher("views/UpdateUser.jsp").forward(request, response);
-        } else if (action != null && action.equals("delete")) {
-            String userId = request.getParameter("userId");
-            boolean result = userService.delete(Integer.parseInt(userId));
-            if (result) {
-                getAllUser(request,response);
-            }
-        }else if (action!=null&& action.equals("search")) {
-            List<User> userListSearch=userService.searchByName(request.getParameter("searchName"));
-
-            if (userListSearch==null){
-                getAllUser(request,response);
-            }else {
-                request.setAttribute("userList",userListSearch);
-                request.getRequestDispatcher("views/userAdmin.jsp").forward(request, response);
-            }
-        } else {
+        if (action!=null&&action.equals("user")) {
             getAllUser(request, response);
-        }
+        }else if (action != null && action.equals("update")) {
+                String userId = request.getParameter("userId");
+                User userUp=userService.findById(Integer.parseInt(userId));
+                request.setAttribute("userUp", userUp);
+                request.getRequestDispatcher("views/UpdateUser.jsp").forward(request, response);
+            } else if (action != null && action.equals("delete")) {
+                String userId = request.getParameter("userId");
+                boolean result = userService.delete(Integer.parseInt(userId));
+                if (result) {
+                    getAllUser(request,response);
+                }
+            }else if (action!=null&& action.equals("search")) {
+                List<User> userListSearch=userService.searchByName(request.getParameter("searchName"));
+
+                if (userListSearch==null){
+                    getAllUser(request,response);
+                }else {
+                    request.setAttribute("userList",userListSearch);
+                    request.getRequestDispatcher("views/userAdmin.jsp").forward(request, response);
+                }
+            }
+
     }
 
 
@@ -70,6 +71,7 @@ public class UserServlet extends HttpServlet {
             user.setEmail(request.getParameter("email"));
             user.setAddress(request.getParameter("address"));
             user.setUserStatus(Boolean.parseBoolean(request.getParameter("userStatus")));
+            user.setUserPemission(Boolean.parseBoolean(request.getParameter("userPemission")));
             user.setConfrimPassWords(request.getParameter("confrimPassWords"));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -92,6 +94,7 @@ public class UserServlet extends HttpServlet {
             user.setEmail(request.getParameter("email"));
             user.setAddress(request.getParameter("address"));
             user.setUserStatus(Boolean.parseBoolean(request.getParameter("userStatus")));
+            user.setUserPemission(Boolean.parseBoolean(request.getParameter("userPemission")));
             user.setConfrimPassWords(request.getParameter("confrimPassWords"));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -108,6 +111,51 @@ public class UserServlet extends HttpServlet {
             if (result) {
                 getAllUser(request, response);
             }
+        }else if (action!=null&&action.equals("signup")){
+            String username=request.getParameter("userName");
+            String pass=request.getParameter("passWords");
+            String confrimPass=request.getParameter("confrimPassWords");
+            String fullName=request.getParameter("fullName");
+            String email=request.getParameter("email");
+            String address=request.getParameter("address");
+            String phone =request.getParameter("phone");
+            String birthDate=request.getParameter("birthDate");
+            String imageUser=request.getParameter("imageUser");
+            User user=new User();
+            user.setUserName(username);
+            user.setPassWords(pass);
+            user.setConfrimPassWords(confrimPass);
+            user.setFullName(fullName);
+            user.setEmail(email);
+            user.setAddress(address);
+            user.setPhone(phone);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                user.setBirthDate(sdf.parse(birthDate));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            user.setImageUser(imageUser);
+           boolean result = userService.save(user);
+           if (result){
+               getAllUser(request,response);
+           }
+        } else if (action!=null&&action.equals("signin")) {
+         User user = null;
+         String name=request.getParameter("userName");
+         String pass=request.getParameter("passWords");
+         user=userService.login(name,pass);
+         if (user!=null){
+             if (user.isUserPemission()&&user.isUserStatus()){
+                 request.getRequestDispatcher("views/homeAd.jsp").forward(request, response);
+
+             }else if (user.isUserStatus()&& !user.isUserPemission()){
+                 request.getRequestDispatcher("views/index.jsp").forward(request, response);
+             }else {
+                 request.getRequestDispatcher("views/log in sign up.jsp").forward(request, response);
+             }
+         }
         }
+
     }
 }

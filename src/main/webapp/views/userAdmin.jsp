@@ -38,26 +38,47 @@
                 <li class="sidebar-header">
                     Pages
                 </li>
-                <li class="sidebar-item ">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="<%=request.getContextPath()%>/views/homeAd.jsp">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/catalog.jsp">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/CatalogServlet?action=catalog">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/productAd.jsp">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/ProductServlet?action=product">
                         <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/userAdmin.jsp">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/UserServlet?action=user">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/ContactServlet?action=contact">
+                        <i class="feather-book-open"></i> <span class="align-middle">Contact</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/SizeServlet?action=size">
+                        <i class="feather-scissors"></i><span class="align-middle">Size</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/CommentServlet?action=comment">
+                        <i class="feather-scissors"></i><span class="align-middle">Comment</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/WishListServlet?action=wishlist">
+                        <i class="feather-scissors"></i><span class="align-middle">Wish List</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </nav>
@@ -274,13 +295,12 @@
                                 <th>Image</th>
                                 <th>User ID</th>
                                 <th>Username</th>
-                                <th>Pass Words</th>
                                 <th>FullName</th>
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Address</th>
+                                <th>User Status</th>
                                 <th>Access Right</th>
-                                <th>Confrim PassWords</th>
                                 <th>Date of birth</th>
                                 <th colspan="2">Action</th>
                             </tr>
@@ -291,13 +311,12 @@
                                     <td><img src="<%=request.getContextPath()%>/images/${user.imageUser}" style="border-radius: 50%" width="20px" alt="#"></td>
                                     <td>${user.userId}</td>
                                     <td>${user.userName}</td>
-                                    <td>${user.passWords}</td>
                                     <td>${user.fullName}</td>
                                     <td>${user.phone}</td>
                                     <td>${user.email}</td>
                                     <td>${user.address}</td>
-                                    <td>${user.userStatus?"Admin":"User"}</td>
-                                    <td>${user.confrimPassWords}</td>
+                                    <td>${user.userStatus?"Hoạt Động":"Không Hoạt Động"}</td>
+                                    <td>${user.userPemission?"Admin":"User"}</td>
                                     <td><fmt:formatDate value="${user.birthDate}" pattern="yyyy-MM-dd"/></td>
                                     <td>
                                         <button type="button" class="btn btn-warning"><a
@@ -362,6 +381,14 @@
                                                 <select class="form-select" id="userStatus" name="userStatus">
                                                     <option value="true">Active</option>
                                                     <option value="false" selected>Inactive</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <label class="input-group-text" for="userPemission">UserPemission
+                                                </label>
+                                                <select class="form-select" id="userPemission" name="userPemission">
+                                                    <option value="true">Admin</option>
+                                                    <option value="false" selected>User</option>
                                                 </select>
                                             </div>
                                             <div class="input-group mb-3">

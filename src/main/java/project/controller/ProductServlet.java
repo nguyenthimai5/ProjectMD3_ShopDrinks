@@ -31,36 +31,38 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action=request.getParameter("action");
-        if (action != null && action.equals("Update")) {
-            String prId = request.getParameter("productId");
-            Product proUpdate=productService.findById(Integer.parseInt(prId));
-            List<Catalog> listCatalogUp = catalogService.findAll();
-            request.setAttribute("listCatalogUp",listCatalogUp);
-            request.setAttribute("proUpdate", proUpdate);
-            request.getRequestDispatcher("views/updateProduct.jsp").forward(request,response);
-        } else if (action != null && action.equals("delete")) {
-            String prId = request.getParameter("productId");
-            boolean result = productService.delete(Integer.parseInt(prId));
-            if (result) {
-                getAllProduct(request,response);
-            }
-        }else if (action!=null&& action.equals("search")) {
-            List<Product> listProductSearch=productService.searchByName(request.getParameter("searchName"));
-            if (listProductSearch==null){
-                getAllProduct(request,response);
-            }else {
-                request.setAttribute("productList",listProductSearch);
-                request.getRequestDispatcher("views/productAd.jsp").forward(request,response);
-            }
-        } else {
+        if (action != null && action.equals("product")) {
             getAllProduct(request, response);
-        }
+
+        } else  if (action != null && action.equals("Update")) {
+                String prId = request.getParameter("productId");
+                Product proUpdate=productService.findById(Integer.parseInt(prId));
+                List<Catalog> listCatalogUp = catalogService.findAllCatalogStatus();
+                request.setAttribute("listCatalogUp",listCatalogUp);
+                request.setAttribute("proUpdate", proUpdate);
+                request.getRequestDispatcher("views/updateProduct.jsp").forward(request,response);
+            } else if (action != null && action.equals("delete")) {
+                String prId = request.getParameter("productId");
+                boolean result = productService.delete(Integer.parseInt(prId));
+                if (result) {
+                    getAllProduct(request,response);
+                }
+            }else if (action!=null&& action.equals("search")) {
+                List<Product> listProductSearch=productService.searchByName(request.getParameter("searchName"));
+                if (listProductSearch==null){
+                    getAllProduct(request,response);
+                }else {
+                    request.setAttribute("productList",listProductSearch);
+                    request.getRequestDispatcher("views/productAd.jsp").forward(request,response);
+                }
+            }
+
     }
     public void getAllProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         List<Product> productList = productService.findAll();
         request.setAttribute("productList",productList);
-        List<Catalog> listCatalog = catalogService.findAll();
+        List<Catalog> listCatalog = catalogService.findAllCatalogStatus();
         request.setAttribute("listCatalog",listCatalog);
         request.getRequestDispatcher("views/productAd.jsp").forward(request, response);
     }

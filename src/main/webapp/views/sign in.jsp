@@ -54,56 +54,56 @@
         <div class="wrapper-2">
           <div class="form-title">Sign up today!</div>
           <div class="form">
-            <form>
+            <form action="<%=request.getContextPath()%>/UserServlet" method="post">
               <p class="content-item">
                 <label> Name
-                  <input type="text" placeholder="Lorem ipsum"  required>
+                  <input type="text" name="userName" placeholder="Lorem ipsum"  required>
                 </label>
               </p>
               <p class="content-item">
                 <label> FullName
-                  <input type="text" placeholder="Lorem ipsum"  required>
+                  <input type="text" name="fullName" placeholder="Lorem ipsum"  required>
                 </label>
               </p>
 
               <p class="content-item">
                 <label>email
-                  <input type="text"  placeholder="lorem@loremipsum.com" name="email" required>
+                  <input type="text"  name="email"  placeholder="lorem@loremipsum.com" name="email" required>
                 </label>
               </p>
 
               <p class="content-item">
 
                 <label>password
-                  <input type="password" placeholder="*****" name="psw" required>
+                  <input type="password"  name="passWords" placeholder="*****" name="psw" required>
                 </label>
               </p>
               <p class="content-item">
                 <label> ConfirmPassWord
-                  <input type="password" placeholder="*****" name="psw" required>
+                  <input type="password" name="confrimPassWords"  placeholder="*****" name="psw" required>
                 </label>
               </p>
               <p class="content-item">
                 <label> Address
-                  <input type="text" placeholder="Lorem ipsum"  required>
+                  <input type="text" name="address"  placeholder="Lorem ipsum"  required>
                 </label>
               </p>
               <p class="content-item">
                 <label> Phone
-                  <input type="number" placeholder="123-4567-8901"  required>
+                  <input type="number" name="phone"  placeholder="123-4567-8901"  required>
                 </label>
               </p>
               <p class="content-item">
                 <label> Birthday
-                  <input type="date" placeholder="brithdate"  required>
+                  <input type="date" name="birthDate"  placeholder="brithdate"  required>
                 </label>
               </p>
-
-
-
-
-              <button type="submit"  class="signup">i want cupcakes </button>
-              <a href="<%=request.getContextPath()%>/views/index.jsp" class="login">login</a>
+              <p class="content-item">
+                <label> Image
+                  <input type="file" name="imageUser">
+                </label>
+              </p>
+              <input type="submit"  class="signup"  value="signup" name="action"/>
             </form>
           </div>
         </div>

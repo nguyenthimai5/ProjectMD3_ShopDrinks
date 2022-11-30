@@ -43,7 +43,7 @@
 		  <div class="collapse navbar-collapse" id="ftco-nav">
 			  <ul class="navbar-nav ml-auto">
 				  <li class="nav-item active"><a href="<%=request.getContextPath()%>/HomeServlet?action=home" class="nav-link">Home</a></li>
-				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/shop.jsp" class="nav-link">Shop</a></li>
+				  <li class="nav-item"><a href="<%=request.getContextPath()%>/HomeServlet?action=shop" class="nav-link">Shop</a></li>
 				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/wishlist.jsp" class="nav-link">WishList</a></li>
 				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/about.jsp" class="nav-link">About</a></li>
 				  <li class="nav-item"><a href="<%=request.getContextPath()%>/views/blog.jsp" class="nav-link">Blog</a></li>
@@ -105,37 +105,38 @@
     	</div>
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-						<c:forEach items="${productList}" var="pro">
-							<a href="<%=request.getContextPath()%>/views/product-single.jsp" id="anh" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/${pro.image}" alt="${pro.productName}">
-								<div class="overlay"></div>
-							</a>
-							<div class="text py-3 pb-4 px-3 text-center">
-								<h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">${pro.productName}</a></h3>
-								<div class="d-flex">
-									<div class="pricing">
-										<p class="price"><span>${pro.price}VNĐ</span></p>
-									</div>
-								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-											<span><i class="ion-ios-menu"></i></span>
-										</a>
-										<a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a>
-										<a href="<%=request.getContextPath()%>/views/about.jsp" class="heart d-flex justify-content-center align-items-center ">
-											<span><i class="ion-ios-heart"></i></span>
-										</a>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
+                <c:forEach items="${productListOn}" var="pro">
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="product">
+                            <a href="<%=request.getContextPath()%>/views/product-single.jsp" id="anh" class="img-prod"><img class="img-fluid" src="<%=request.getContextPath()%>/images/${pro.image}" alt="${pro.productName}">
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="<%=request.getContextPath()%>/views/product-single.jsp">${pro.productName}</a></h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price"><span>${pro.price} VND</span></p>
+                                    </div>
+                                </div>
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="<%=request.getContextPath()%>/views/product-single.jsp" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                            <span><i class="ion-ios-menu"></i></span>
+                                        </a>
+                                        <a href="<%=request.getContextPath()%>/views/cart.jsp" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                        <a href="<%=request.getContextPath()%>/views/wishlist.jsp" class="heart d-flex justify-content-center align-items-center ">
+                                            <span><i class="ion-ios-heart"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
 
-    				</div>
-    			</div>
+
     		</div>
     	</div>
     </section>
@@ -369,7 +370,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/js/main.js"></script>
-
 
   </body>
 </html>

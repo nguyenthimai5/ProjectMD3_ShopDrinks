@@ -38,31 +38,47 @@
                 <li class="sidebar-header">
                     Pages
                 </li>
-                <li class="sidebar-item ">
+                <li class="sidebar-item active">
                     <a class="sidebar-link" href="<%=request.getContextPath()%>/views/homeAd.jsp">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/catalog.jsp">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/CatalogServlet?action=catalog">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/productAd.jsp">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/ProductServlet?action=product">
                         <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/userAdmin.jsp">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/UserServlet?action=user">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/contactAd.jsp">
-                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">Contact</span>
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/ContactServlet?action=contact">
+                        <i class="feather-book-open"></i> <span class="align-middle">Contact</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/SizeServlet?action=size">
+                        <i class="feather-scissors"></i><span class="align-middle">Size</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/CommentServlet?action=comment">
+                        <i class="feather-scissors"></i><span class="align-middle">Comment</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/WishListServlet?action=wishlist">
+                        <i class="feather-scissors"></i><span class="align-middle">Wish List</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </nav>

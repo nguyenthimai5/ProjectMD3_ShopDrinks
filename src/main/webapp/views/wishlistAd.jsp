@@ -11,8 +11,10 @@
   <meta name="author" content="AdminKit">
   <meta name="keywords"
         content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
 
@@ -36,26 +38,47 @@
         <li class="sidebar-header">
           Pages
         </li>
-        <li class="sidebar-item ">
+        <li class="sidebar-item active">
           <a class="sidebar-link" href="<%=request.getContextPath()%>/views/homeAd.jsp">
             <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="<%=request.getContextPath()%>/views/catalog.jsp">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/CatalogServlet?action=catalog">
             <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="<%=request.getContextPath()%>/views/productAd.jsp">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/ProductServlet?action=product">
             <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
           </a>
         </li>
-        <li class="sidebar-item active">
-          <a class="sidebar-link" href="<%=request.getContextPath()%>/views/userAdmin.jsp">
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/UserServlet?action=user">
             <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/ContactServlet?action=contact">
+            <i class="feather-book-open"></i> <span class="align-middle">Contact</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/SizeServlet?action=size">
+            <i class="feather-scissors"></i><span class="align-middle">Size</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/CommentServlet?action=comment">
+            <i class="feather-scissors"></i><span class="align-middle">Comment</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="<%=request.getContextPath()%>/WishListServlet?action=wishlist">
+            <i class="feather-scissors"></i><span class="align-middle">Wish List</span>
+          </a>
+        </li>
+
       </ul>
     </div>
   </nav>
@@ -246,106 +269,89 @@
       <div class="container-fluid p-0">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Demo User Table</h3>
+            <h3 class="card-title">Size Table</h3>
             <nav class="navbar navbar-expand-lg bg-light">
               <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                  <button type="button" class="btn btn-success">+ Create new Account</button>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newWishListModal">
+                    Create New WishList
+                  </button>
                 </a>
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2 fst-italic" type="search"
-                         placeholder="Enter user's name... "
-                         aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
               </div>
             </nav>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form action="<%=request.getContextPath()%>/UserServlet" method="post">
-              <table id="example1" class="table table-bordered table-striped text-center" border="1">
+            <table id="example1" class="table table-bordered table-striped text-center" border="1">
+              <thead>
+              <tr>
+                <th>WishList Id</th>
+                <th>Product ID</th>
+                <th>User Id</th>
+                <th>WishList Status</th>
+                <th colspan="2">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <c:forEach items="${wishLists}" var="wish">
                 <tr>
-                  <td>User Id</td>
-                  <td><input type="text" name="userId" value="${userUp.userId}"readonly></td>
-                </tr>
-                <tr>
-                  <td>User Name</td>
-                  <td><input type="text" name="userName" value="${userUp.userName}"></td>
-                </tr>
-                <tr>
-                  <td>Pass Words</td>
-                  <td><input type="password" name="passWords" value="${userUp.passWords}"></td>
-                </tr>
-                <tr>
-                  <td>Full Name</td>
-                  <td><input type="text" name="fullName" value="${userUp.fullName}"></td>
-                </tr>
-                <tr>
-                  <td>Phone</td>
-                  <td><input type="text" name="phone" value="${userUp.phone}"></td>
-                </tr>
-                <tr>
-                  <td>Email</td>
-                  <td><input type="email" name="email" value="${userUp.email}"></td>
-                </tr>
-                <tr>
-                  <td>Address</td>
-                  <td><input type="text" name="address" value="${userUp.address}"></td>
-                </tr>
-                <tr>
-                  <td>User Status</td>
+                  <td>${wish.wishlistId}</td>
+                  <td>${wish.productId}</td>
+                  <td>${wish.userId}</td>
                   <td>
-                    <c:choose>
-                      <c:when test="${userUp.userStatus}">
-                        <input type="radio" name="userStatus" id="Active" value="true" checked/><lable for="Active">Hoạt Động</lable>
-                        <input type="radio" name="userStatus" id="InActive" value="false"/><lable for="InActive">Không Hoạt Động</lable>
-                      </c:when>
-                      <c:otherwise>
-                        <input type="radio" name="userStatus" id="Active" value="true" /><lable for="Active">Hoạt Động</lable>
-                        <input type="radio" name="userStatus" id="InActive" value="false"checked/><lable for="InActive">Không Hoạt Động</lable>
-                      </c:otherwise>
-                    </c:choose>
+                      ${wish.wishlistStatus?"Hoạt Động":"Không Hoạt Động "}
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-warning"><a href="<%=request.getContextPath()%>/WishListServlet?wishlistId=${wish.wishlistId}&&action=update">Update</a></button>
 
                   </td>
-                </tr>
-                <tr>
-                  <td>Confrim PassWords</td>
-                  <td><input type="password" name="confrimPassWords" value="${userUp.confrimPassWords}"></td>
-                </tr>
-                <tr>
-                  <td>Birth Date</td>
-                  <td><input type="date" name="birthDate" value="${userUp.birthDate}"></td>
-                </tr>
-                <tr>
-                  <td>Image</td>
-                  <td> <img src="<%=request.getContextPath()%>/images/${userUp.imageUser}" width="25%" style="border-radius: 20px" alt="${userUp.imageUser}">
-                    <input type="file" name="imageUser"></td>
-                  <input type="hidden"   value="${userUp.imageUser}" name = "oldImg">
-                </tr>
-                <tr>
-                  <td colspan="5">
-                    <input type="submit" value="update" name="action"/>
-                  </td>
-                </tr>
-                <tr>
-                  <td>User Pemission</td>
                   <td>
-                    <c:choose>
-                      <c:when test="${userUp.userPemission}">
-                        <input type="radio" name="userPemission" id="Active" value="true" checked/><lable for="Active">Admin</lable>
-                        <input type="radio" name="userPemission" id="InActive" value="false"/><lable for="InActive">User</lable>
-                      </c:when>
-                      <c:otherwise>
-                        <input type="radio" name="userPemission" id="Active" value="true" /><lable for="Active">Admin</lable>
-                        <input type="radio" name="userPemission" id="InActive" value="false"checked/><lable for="InActive">User</lable>
-                      </c:otherwise>
-                    </c:choose>
-
+                    <button type="button" class="btn btn-danger"><a href="<%=request.getContextPath()%>/WishListServlet?wishlistId=${wish.wishlistId}&&action=delete">Delete</a></button>
                   </td>
                 </tr>
-              </table>
-            </form>
+              </c:forEach>
+              </tbody>
+
+            </table>
+            <div class="modal fade" id="newWishListModal" tabindex="-1" aria-labelledby="newSizeLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form action="<%=request.getContextPath()%>/WishListServlet" method="post">
+                    <div class="modal-body">
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="productId">Product</label>
+                        <select class="form-select" id="productId" name="productId">
+                          <c:forEach items="${productList}" var="pro">
+                            <option value="${pro.productId}">${pro.productName}</option>
+                          </c:forEach>
+                        </select>
+                      </div>
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="userId">User</label>
+                        <select class="form-select" id="userId" name="userId">
+                          <c:forEach items="${userList}" var="user">
+                            <option value="${user.userId}">${user.userName}</option>
+                          </c:forEach>
+                        </select>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="wishlistStatus">WishList Status</label>
+                        <select class="form-select" id="wishlistStatus" name="wishlistStatus">
+                          <option value="true" selected>Active</option>
+                          <option value="false">Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <input type="submit" name="action" value="add" class="btn btn-primary"/>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
           </div>
           <nav aria-label="Page navigation example ">
             <ul class="pagination float-end mx-4">
@@ -362,15 +368,14 @@
           </nav>
           <!-- /.card-body -->
         </div>
-
       </div>
-
     </main>
 
   </div>
 </div>
 
 <script src="<%=request.getContextPath()%>/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -597,3 +602,27 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -22,29 +22,30 @@ public class CatalogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action=request.getParameter("action");
-         if (action != null && action.equals("update")) {
-            String catId = request.getParameter("catalogId");
-            Catalog catUpDate= catalogService.findById(catId);
-            request.setAttribute("catalogUpdate", catUpDate);
-            request.getRequestDispatcher("views/updateCatalog.jsp").forward(request, response);
-        } else if (action != null && action.equals("delete")) {
-            String catId = request.getParameter("catalogId");
-            boolean result = catalogService.delete(catId);
-            if (result) {
-                getAllCatalog(request,response);
-            }
-        }else if (action!=null&& action.equals("search")) {
-            List<Catalog> listSearchCat=catalogService.searchByName(request.getParameter("searchName"));
-            if (listSearchCat==null){
-                getAllCatalog(request,response);
-            }else {
-                request.setAttribute("listCatalog",listSearchCat);
-                request.getRequestDispatcher("views/catalog.jsp").forward(request, response);
+        if (action!=null&& action.equals("catalog")) {
+            getAllCatalog(request, response);
+        }else if (action != null && action.equals("update")) {
+                String catId = request.getParameter("catalogId");
+                Catalog catUpDate= catalogService.findById(catId);
+                request.setAttribute("catalogUpdate", catUpDate);
+                request.getRequestDispatcher("views/updateCatalog.jsp").forward(request, response);
+            } else if (action != null && action.equals("delete")) {
+                String catId = request.getParameter("catalogId");
+                boolean result = catalogService.delete(catId);
+                if (result) {
+                    getAllCatalog(request,response);
+                }
+            }else if (action!=null&& action.equals("search")) {
+                List<Catalog> listSearchCat=catalogService.searchByName(request.getParameter("searchName"));
+                if (listSearchCat==null){
+                    getAllCatalog(request,response);
+                }else {
+                    request.setAttribute("listCatalog",listSearchCat);
+                    request.getRequestDispatcher("views/catalog.jsp").forward(request, response);
+                }
+
             }
 
-        } else {
-            getAllCatalog(request, response);
-        }
     }
 
     public void getAllCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

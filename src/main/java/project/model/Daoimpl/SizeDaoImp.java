@@ -157,4 +157,29 @@ public class SizeDaoImp implements SizeDao<Size,String> {
         }
         return sizeListsearch;
     }
+
+    @Override
+    public List<Size> findAllSizeStatus() {
+        List<Size> sizeList=null;
+        Connection conn=null;
+        CallableStatement callSt=null;
+        try{
+            conn= ConnectionDB.openConnection();
+            callSt= conn.prepareCall("{call getAllSizeStatus()}");
+            ResultSet rs=callSt.executeQuery();
+            sizeList=new ArrayList<>();
+            while (rs.next()){
+                Size size=new Size();
+                size.setSizeId(rs.getString("sizeId"));
+                size.setSizeName(rs.getString("sizeName"));
+                size.setSizeStatus(rs.getBoolean("sizeStatus"));
+                sizeList.add(size);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionDB.closeConnection(conn,callSt);
+        }
+        return sizeList;
+    }
 }

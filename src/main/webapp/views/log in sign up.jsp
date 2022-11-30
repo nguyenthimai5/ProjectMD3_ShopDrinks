@@ -33,47 +33,31 @@
 </head>
 <body class="goto-here">
 <div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form action="#">
-            <h1>Create Account</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
-        </form>
-    </div>
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form action="<%=request.getContextPath()%>/UserServlet" method="post">
             <h1>Sign in</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            <span>or use your account</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <a href="#">Forgot your password?</a>
-            <button><a href="<%=request.getContextPath()%>/views/homeAd.jsp">Sign In</a></button>
+            <span>hoặc sử dụng tài khoản khác của bạn</span>
+            <input type="text" name="userName" placeholder="User Name" />
+            <input type="password" name="passWords" placeholder="Password" />
+            <input type="submit"  value="signin" name="action"/>
         </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>To keep connected with us please login with your personal info</p>
-                <button class="ghost" id="signIn"><a href="<%=request.getContextPath()%>/views/index.jsp">Sign In</a></button>
+                <h1>Drinks Welcome Back!</h1>
+                <p>Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá nhân của bạn</p>
+                <button class="ghost" id="signIn"><a href="<%=request.getContextPath()%>/UserServlet?action=signin">Sign In</a></button>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Hello, Friend!</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button class="ghost" id="signUp"><a href="<%=request.getContextPath()%>/views/sign in.jsp">Sign Up</a></button>
+                <p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi!</p>
+                <button class="ghost" id="signUp"><a href="<%=request.getContextPath()%>/views/sign in.jsp?action=signup">Sign Up</a></button>
             </div>
         </div>
     </div>

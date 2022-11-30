@@ -14,11 +14,12 @@ public class User {
     private String confrimPassWords;
     private Date birthDate;
     private String imageUser;
+    private boolean userPemission;
 
     public User() {
     }
 
-    public User(int userId, String userName, String passWords, String fullName, String phone, String email, String address, boolean userStatus, String confrimPassWords, Date birthDate, String imageUser) {
+    public User(int userId, String userName, String passWords, String fullName, String phone, String email, String address, boolean userStatus, String confrimPassWords, Date birthDate, String imageUser, boolean userPemission) {
         this.userId = userId;
         this.userName = userName;
         this.passWords = passWords;
@@ -30,6 +31,7 @@ public class User {
         this.confrimPassWords = confrimPassWords;
         this.birthDate = birthDate;
         this.imageUser = imageUser;
+        this.userPemission = userPemission;
     }
 
     public int getUserId() {
@@ -118,6 +120,14 @@ public class User {
 
     public void setImageUser(String imageUser) {
         this.imageUser = imageUser;
+    }
+
+    public boolean isUserPemission() {
+        return userPemission;
+    }
+
+    public void setUserPemission(boolean userPemission) {
+        this.userPemission = userPemission;
     }
 }
 

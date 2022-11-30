@@ -41,4 +41,16 @@ public class UserServiceImp implements UserService<User,Integer> {
     public List<User> searchByName(String name) {
         return userDao.searchByName(name);
     }
+
+    @Override
+    public List<User> findAllUserStatus() {
+        return userDao.findAllUserStatus();
+    }
+
+    @Override
+    public User login(String name, String pass) {
+        return userDao.login(name,pass);
+    }
+
+
 }

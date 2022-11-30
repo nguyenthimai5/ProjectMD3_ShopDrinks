@@ -42,4 +42,9 @@ public class ProductServiceImp implements ProductService<Product,Integer> {
     public List<Product> searchByName(String name) {
         return productDao.searchByName(name);
     }
+
+    @Override
+    public List<Product> findAllProductStatus() {
+        return productDao.findAllProductStatus();
+    }
 }

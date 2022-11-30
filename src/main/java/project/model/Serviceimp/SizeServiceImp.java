@@ -42,4 +42,9 @@ public class SizeServiceImp implements SizeService<Size,String> {
     public List<Size> searchByName(String name) {
         return sizeDao.searchByName(name);
     }
+
+    @Override
+    public List<Size> findAllSizeStatus() {
+        return sizeDao.findAllSizeStatus();
+    }
 }

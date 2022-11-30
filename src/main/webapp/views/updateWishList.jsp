@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -14,15 +15,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="<%=request.getContextPath()%>/images/icon-48x48.png"/>
+    <link rel="shortcut icon" href="img/icons/icon-48x48.png"/>
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/"/>
 
     <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
-
-    <link href="<%=request.getContextPath()%>/css/app.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link href="<%=request.getContextPath()%>/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -38,47 +39,26 @@
                 <li class="sidebar-header">
                     Pages
                 </li>
-                <li class="sidebar-item active">
+                <li class="sidebar-item ">
                     <a class="sidebar-link" href="<%=request.getContextPath()%>/views/homeAd.jsp">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/CatalogServlet?action=catalog">
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/catalog.jsp">
                         <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Category</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/ProductServlet?action=product">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/productAd.jsp">
                         <i class="align-middle" data-feather="square"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/UserServlet?action=user">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/views/userAdmin.jsp">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/ContactServlet?action=contact">
-                        <i class="feather-book-open"></i> <span class="align-middle">Contact</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/SizeServlet?action=size">
-                        <i class="feather-scissors"></i><span class="align-middle">Size</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/CommentServlet?action=comment">
-                        <i class="feather-scissors"></i><span class="align-middle">Comment</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/WishListServlet?action=wishlist">
-                        <i class="feather-scissors"></i><span class="align-middle">Wish List</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
     </nav>
@@ -244,19 +224,21 @@
 
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                             <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-                            <span class="text-dark">Drinks</span>
+                            <span class="text-dark">Chris Hung</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/views/contactAd.jsp"><i class="align-middle me-1"
+                            <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                                                  data-feather="user"></i> Profile</a>
                             <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
                                 Analytics</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/views/homeAd.jsp"><i class="align-middle me-1"
+                            <a class="dropdown-item" href="index.html"><i class="align-middle me-1"
                                                                           data-feather="settings"></i> Settings &
                                 Privacy</a>
+                            <a class="dropdown-item" href="#"><i class="align-middle me-1"
+                                                                 data-feather="help-circle"></i> Help Center</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/views/index.jsp">Log out</a>
+                            <a class="dropdown-item" href="#">Log out</a>
                         </div>
                     </li>
                 </ul>
@@ -267,123 +249,71 @@
             <div class="container-fluid p-0">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Product Table</h3>
+                        <h3 class="card-title">Product Update Table</h3>
                         <nav class="navbar navbar-expand-lg bg-light">
                             <div class="container-fluid">
-                                <a class="navbar-brand" href="#">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCatalogModal">
-                                        Create New Product
-                                    </button>
-                                </a>
-                                <form class="d-flex" role="search" action="<%=request.getContextPath()%>/ProductServlet">
-                                    <input class="form-control me-2 fst-italic" type="text"
-                                           placeholder="Enter product's name... "
-                                           aria-label="Search" name="searchName">
-                                    <input class="btn btn-outline-success" type="submit" value="search" name="action"/>
-                                </form>
                             </div>
                         </nav>
                     </div>
                     <!-- /.card-header -->
-                    <body>
-
                     <div class="card-body">
-
-                        <table id="example1" class="table table-bordered table-striped text-center">
-                            <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Product ID</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th colspan="3">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${productList}" var="pro">
+                        <form action="<%=request.getContextPath()%>/WishListServlet" method="post">
+                            <table id="example1" class="table table-bordered table-striped text-center" border="1">
                                 <tr>
-                                    <td><img src="<%=request.getContextPath()%>/images/${pro.image}" width="30px" alt="#"></td>
-                                    <td>${pro.productId}</td>
-                                    <td>${pro.productName}</td>
-                                    <td>${pro.catalogId}</td>
-                                    <td>${pro.descriptions}</td>
-                                    <td>${pro.quantity}</td>
-                                    <td>${pro.price}</td>
-                                    <td>${pro.productStatus?"Hoạt Động":"Không Hoạt Động"}</td>
+                                    <td>Wish List Id</td>
+                                    <td><input type="number" name="wishlistId" value="${wishListUp.sizeId}"readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>Product</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning"><a href="<%=request.getContextPath()%>/ProductServlet?productId=${pro.productId}&&action=Update">Edit</a></button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger"><a href="<%=request.getContextPath()%>/ProductServlet?productId=${pro.productId}&&action=delete">Delete</a></button>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-details" style="background-color: #93c47d"><a href="views/ProductDetails.jsp">Details</a></button>
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text" for="productId">Product</label>
+                                            <select class="form-select" id="productId" name="productId">
+                                                <option value="${wishListUp.productId}" selected>${wishListUp.productId}</option>
+                                                <c:forEach items="${productListUp}" var="pro">
+                                                    <option value="${pro.productId}">${pro.productName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                     </td>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
+                                <tr>
+                                    <td>User</td>
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text" for="userId">User</label>
+                                            <select class="form-select" id="userId" name="userId">
+                                                <option value="${wishListUp.userId}" selected>${wishListUp.userId}</option>
+                                                <c:forEach items="${userListUp}" var="user">
+                                                    <option value="${user.userId}">${user.userName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Wish List Status</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${wishListUp.wishlistStatus}">
+                                                <input type="radio" name="wishlistStatus" id="Active" value="true" checked/><lable for="Active">Hoạt Động</lable>
+                                                <input type="radio" name="wishlistStatus" id="InActive" value="false"/><lable for="InActive">Không Hoạt Động</lable>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="radio" name="wishlistStatus" id="Active" value="true" /><lable for="Active">Hoạt Động</lable>
+                                                <input type="radio" name="wishlistStatus" id="InActive" value="false"checked/><lable for="InActive">Không Hoạt Động</lable>
+                                            </c:otherwise>
+                                        </c:choose>
 
-                        </table>
-                        <!-- Modal Create New Catalog -->
-                        <div class="modal fade" id="newCatalogModal" tabindex="-1" aria-labelledby="newCatalogLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="<%=request.getContextPath()%>/ProductServlet" method="post">
-                                        <div class="modal-body">
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="productName">productName</span>
-                                                <input type="text" name="productName" class="form-control" placeholder="Input productName"
-                                                       aria-label="ProductName" aria-describedby="basic-addon1">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <label class="input-group-text" for="catalogId">Catalog Parent</label>
-                                                <select class="form-select" id="catalogId" name="catalogId">
-                                                    <c:forEach items="${listCatalog}" var="cat">
-                                                        <option value="${cat.catalogId}">${cat.catalogName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="descriptions">Descriptions</span>
-                                                <input type="text" name="descriptions" class="form-control" placeholder="Input Descriptions"
-                                                       aria-label="Descriptions" aria-describedby="basic-addon1">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="quantity">Quantity</span>
-                                                <input type="number" name="quantity" class="form-control" placeholder="Input quantity"
-                                                       aria-label="quantity" aria-describedby="basic-addon1">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="image">Image</span>
-                                                <input type="file" name="image" class="form-control" placeholder="Input image"
-                                                       aria-label="image" aria-describedby="basic-addon1">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="price">Price</span>
-                                                <input type="number" name="price" class="form-control" placeholder="Input price"
-                                                       aria-label="price" aria-describedby="basic-addon1">
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <label class="input-group-text" for="productStatus">ProductStatus</label>
-                                                <select class="form-select" id="productStatus" name="productStatus">
-                                                    <option value="true" selected>Active</option>
-                                                    <option value="false">Inactive</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <input type="submit" name="action" value="add" class="btn btn-primary"/>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal Delete Catalog-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <input type="submit" value="update" name="action"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
                     </div>
                     <nav aria-label="Page navigation example ">
                         <ul class="pagination float-end mx-4">
@@ -398,13 +328,17 @@
                             </li>
                         </ul>
                     </nav>
+                    <!-- /.card-body -->
                 </div>
             </div>
         </main>
+
     </div>
-    <%--Modal Update Catalog--%>
+</div>
+
 <script src="<%=request.getContextPath()%>/js/app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
@@ -630,3 +564,9 @@
 </body>
 
 </html>
+
+
+
+
+
+

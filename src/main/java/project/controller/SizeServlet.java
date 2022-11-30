@@ -26,7 +26,9 @@ public class SizeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action=request.getParameter("action");
-        if (action != null && action.equals("update")) {
+        if (action != null && action.equals("size")) {
+            getAllSize(request, response);
+        }else if (action != null && action.equals("update")) {
             String sizeId = request.getParameter("sizeId");
             Size sizeUpdate=sizeService.findById(sizeId);
             request.setAttribute("sizeUpdate", sizeUpdate);
@@ -45,9 +47,9 @@ public class SizeServlet extends HttpServlet {
                 request.setAttribute("sizeList",listSearchSize);
                 request.getRequestDispatcher("views/size.jsp").forward(request, response);
             }
-        } else {
-            getAllSize(request, response);
         }
+
+
     }
 
     @Override

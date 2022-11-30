@@ -180,4 +180,34 @@ public class ProductDaoImp implements ProductDao<Product, Integer> {
         }
         return productListsearch;
     }
+
+    @Override
+    public List<Product> findAllProductStatus() {
+        List<Product> productList = null;
+        Connection conn = null;
+        CallableStatement callSt = null;
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call getAllProductStatus()}");
+            ResultSet rs = callSt.executeQuery();
+            productList = new ArrayList<>();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductId(rs.getInt("productId"));
+                product.setProductName(rs.getString("productName"));
+                product.setCatalogId(rs.getString("catalogId"));
+                product.setDescriptions(rs.getString("descriptions"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setImage(rs.getString("image"));
+                product.setPrice(rs.getFloat("price"));
+                product.setProductStatus(rs.getBoolean("productStatus"));
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return productList;
+    }
 }

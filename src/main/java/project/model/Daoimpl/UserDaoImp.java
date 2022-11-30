@@ -33,6 +33,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
                user.setConfrimPassWords(rs.getString("confrimPassWords"));
                 user.setBirthDate(rs.getDate("birthDate"));
                 user.setImageUser(rs.getString("imageUser"));
+                user.setUserPemission(rs.getBoolean("userPemission"));
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -67,6 +68,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
                 user.setImageUser(rs.getString("imageUser"));
                 user.setUserStatus(rs.getBoolean("userStatus"));
                 user.setBirthDate(rs.getDate("birthDate"));
+                user.setUserPemission(rs.getBoolean("userPemission"));
 
             }
         } catch (SQLException e) {
@@ -84,7 +86,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
         CallableStatement callSt=null;
         try{
             conn= ConnectionDB.openConnection();
-            callSt= conn.prepareCall("{call insertUsers(?,?,?,?,?,?,?,?,?,?)}");
+            callSt= conn.prepareCall("{call insertUsers(?,?,?,?,?,?,?,?,?,?,?)}");
             callSt.setString(1, user.getUserName());
             callSt.setString(2, user.getPassWords());
             callSt.setString(3, user.getFullName());
@@ -95,6 +97,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
             callSt.setString(8, user.getConfrimPassWords());
             callSt.setDate(9, new Date(user.getBirthDate().getTime()));
             callSt.setString(10,user.getImageUser());
+            callSt.setBoolean(11,user.isUserPemission());
             callSt.executeUpdate();
 
         } catch (SQLException e) {
@@ -113,7 +116,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
         CallableStatement callSt=null;
         try{
             conn= ConnectionDB.openConnection();
-            callSt= conn.prepareCall("{call updateUsers(?,?,?,?,?,?,?,?,?,?,?)}");
+            callSt= conn.prepareCall("{call updateUsers(?,?,?,?,?,?,?,?,?,?,?,?)}");
             callSt.setInt(1,user.getUserId());
             callSt.setString(2, user.getUserName());
             callSt.setString(3, user.getPassWords());
@@ -125,6 +128,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
             callSt.setString(9, user.getConfrimPassWords());
             callSt.setDate(10, new Date(user.getBirthDate().getTime()));
             callSt.setString(11,user.getImageUser());
+            callSt.setBoolean(12, user.isUserPemission());
             callSt.executeUpdate();
 
         } catch (SQLException e) {
@@ -177,6 +181,7 @@ public class UserDaoImp implements UserDao<User,Integer> {
                 user.setEmail(rs.getString("email"));
                 user.setAddress(rs.getString("address"));
                 user.setUserStatus(rs.getBoolean("userStatus"));
+                user.setUserPemission(rs.getBoolean("userPemission"));
                 user.setConfrimPassWords(rs.getString("confrimPassWords"));
                 user.setBirthDate(rs.getDate("birthDate"));
                 user.setImageUser(rs.getString("imageUser"));
@@ -191,4 +196,78 @@ public class UserDaoImp implements UserDao<User,Integer> {
         }
         return userListsearch;
     }
+
+    @Override
+    public List<User> findAllUserStatus() {
+        List<User> userList=null;
+        Connection conn=null;
+        CallableStatement callSt=null;
+        try{
+            conn= ConnectionDB.openConnection();
+            callSt= conn.prepareCall("{call getAllUsersStt()}");
+            ResultSet rs=callSt.executeQuery();
+            userList=new ArrayList<>();
+            while (rs.next()){
+                User user=new User();
+                user.setUserId(rs.getInt("userId"));
+                user.setUserName(rs.getString("userName"));
+                user.setPassWords(rs.getString("passWords"));
+                user.setFullName(rs.getString("fullName"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setAddress(rs.getString("address"));
+                user.setUserStatus(rs.getBoolean("userStatus"));
+                user.setConfrimPassWords(rs.getString("confrimPassWords"));
+                user.setBirthDate(rs.getDate("birthDate"));
+                user.setImageUser(rs.getString("imageUser"));
+                user.setUserPemission(rs.getBoolean("userPemission"));
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionDB.closeConnection(conn,callSt);
+        }
+        return userList;
+    }
+
+
+    @Override
+    public User login(String name, String pass) {
+        User user=null;
+        Connection conn=null;
+        CallableStatement callSt=null;
+        try{
+            conn= ConnectionDB.openConnection();
+            callSt= conn.prepareCall("{call login(?,?)}");
+            callSt.setString(1,name);
+            callSt.setString(2,pass);
+
+            ResultSet rs=callSt.executeQuery();
+            user=new User();
+
+            if (rs.next()){
+                user.setUserId(rs.getInt("userId"));
+                user.setUserName(rs.getString("userName"));
+                user.setPassWords(rs.getString("passWords"));
+                user.setFullName(rs.getString("fullName"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setAddress(rs.getString("address"));
+                user.setConfrimPassWords(rs.getString("confrimPassWords"));
+                user.setImageUser(rs.getString("imageUser"));
+                user.setUserStatus(rs.getBoolean("userStatus"));
+                user.setBirthDate(rs.getDate("birthDate"));
+                user.setUserPemission(rs.getBoolean("userPemission"));
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ConnectionDB.closeConnection(conn,callSt);
+        }
+        return user;
+    }
+
+
 }
